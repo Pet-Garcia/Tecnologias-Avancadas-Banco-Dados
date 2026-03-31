@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24/03/2026 às 20:16
+-- Tempo de geração: 31/03/2026 às 21:38
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -32,19 +32,21 @@ USE `academico`;
 CREATE TABLE `alunos` (
   `ra` int(16) NOT NULL,
   `nome` varchar(50) NOT NULL,
-  `cpf` char(16) NOT NULL
+  `cpf` char(16) NOT NULL,
+  `telefone` char(16) NOT NULL,
+  `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `alunos`
 --
 
-INSERT INTO `alunos` (`ra`, `nome`, `cpf`) VALUES
-(1001, 'João Pedro', '123.456.789-00'),
-(1002, 'Maria Clara', '234.567.890-11'),
-(1003, 'Lucas Santos', '345.678.901-22'),
-(1004, 'Beatriz Oliveira', '456.789.012-33'),
-(1005, 'Gabriel Rocha', '567.890.123-44');
+INSERT INTO `alunos` (`ra`, `nome`, `cpf`, `telefone`, `email`) VALUES
+(1001, 'João Pedro', '123.456.789-00', '', ''),
+(1002, 'Maria Clara', '234.567.890-11', '', ''),
+(1003, 'Lucas Santos', '345.678.901-22', '', ''),
+(1004, 'Beatriz Oliveira', '456.789.012-33', '', ''),
+(1005, 'Gabriel Rocha', '567.890.123-44', '', '');
 
 -- --------------------------------------------------------
 
