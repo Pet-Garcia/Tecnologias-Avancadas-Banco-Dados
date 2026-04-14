@@ -1,35 +1,38 @@
 <?php
+
+include('./conect.php');
+
 $tables = [
   [
-    "name" => "Usuários",
-    "path" => "usuarios.php",
+    "name" => "Alunos",
+    "path" => "alunos.php",
     "count" => 0,
     "color" => "cyan",
-    "description" => "Gerenciar usuários do sistema",
-    "icon" => "👤"
+    "description" => "Catalógo completo dos alunos",
+    "icon" => "🧑‍🎓"
   ],
   [
-    "name" => "Produtos",
-    "path" => "produtos.php",
+    "name" => "Professores",
+    "path" => "professores.php",
     "count" => 0,
     "color" => "green",
-    "description" => "Catálogo completo de produtos",
-    "icon" => "📦"
+    "description" => "Catálogo completo dos professores",
+    "icon" => "🧑‍🏫"
   ],
   [
-    "name" => "Pedidos",
-    "path" => "pedidos.php",
+    "name" => "Disciplinas",
+    "path" => "disciplinas.php",
     "count" => 0,
     "color" => "purple",
-    "description" => "Histórico de pedidos realizados",
-    "icon" => "🛒"
+    "description" => "Catálogo completo das disciplinas",
+    "icon" => "📗"
   ],
   [
-    "name" => "Categorias",
-    "path" => "categorias.php",
+    "name" => "Turmas",
+    "path" => "turmas.php",
     "count" => 0,
     "color" => "yellow",
-    "description" => "Classificação de produtos",
+    "description" => "Catálogo completo das turmas",
     "icon" => "📁"
   ]
 ];
@@ -50,7 +53,7 @@ function getColor($color) {
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>DB Explorer</title>
+  <title>DB Academico</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -105,7 +108,7 @@ function getColor($color) {
         <div class="text-5xl text-cyan-400">🗄️</div>
         <div>
           <h1 class="text-6xl">
-            <span class="text-cyan-400">DB</span>_EXPLORER
+            <span class="text-cyan-400">DB</span>_Academico
           </h1>
           <div class="text-sm text-gray-500 mt-2">
             $ database.tables.list() <span class="text-green-400">▊</span>
