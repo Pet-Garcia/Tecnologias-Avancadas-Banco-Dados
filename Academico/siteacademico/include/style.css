@@ -1,0 +1,58 @@
+
+body {
+    background-color: #111827;
+    display: flex;
+    flex-direction: column; /* Permite que o título e a tabela fiquem um sob o outro */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    color: #f3f4f6; /* Texto quase branco (gray-100) */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+table {
+    background-color: #1f2937; /* gray-800 */
+    border: 2px solid #9ca3af; /* gray-400 */
+    border-collapse: collapse;
+    width: 450px; /* Largura fixa para manter o padrão nos forms */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade */
+}
+
+td {
+    border: 1px solid #4b5563; /* gray-600 para as linhas internas ficarem sutis */
+    padding: 12px;
+}
+
+/* Estilo para destacar a primeira linha (título) */
+tr:first-child td {
+    background-color: #374151; /* gray-700 */
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+input {
+    background-color: #111827;
+    border: 1px solid #9ca3af;
+    color: white;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box; /* Evita que o input saia da tabela */
+}
+
+input[type="submit"] {
+    background-color: #3b82f6; /* Um azul para o botão de ação */
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+input[type="submit"]:hover {
+    background-color: #2563eb;
+}
+a{
+    color: #3b82f6; /* Azul para links ao passar o mouse */
+}
+a:hover {
+    color: #25eb56;
+}
