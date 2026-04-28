@@ -54,7 +54,7 @@ switch ($passo)
         $idcurso = $_POST['idcurso'];
         $idprofessor = $_POST['idprofessor'];
 
-        include('./conect.php');
+        include('include/conect.php');
 
         $query = "INSERT INTO disciplina VALUES ('$iddisciplina', '$nomedisciplina', '$idcurso', '$idprofessor')";
         $q1 = mysqli_query($conn, $query);
@@ -65,12 +65,20 @@ switch ($passo)
                 <td colspan="2" align="center"><b>Disciplina Cadastrada</b></td>
             </tr>
             <tr>
+                <td>ID Disciplina:</td>
+                <td><?php echo $iddisciplina; ?></td>
+            </tr>
+            <tr>
                 <td>Disciplina:</td>
                 <td><?php echo $nomedisciplina; ?></td>
             </tr>
             <tr>
                 <td>ID Curso:</td>
                 <td><?php echo $idcurso; ?></td>
+            </tr>
+            <tr>
+                <td>ID Professor:</td>
+                <td><?php echo $idprofessor; ?></td>
             </tr>
             <tr>
                 <td><a href="index.php">Início</a></td>

@@ -59,10 +59,10 @@ switch ($passo)
         $tel = $_POST['tel'];
         $email = $_POST['email'];
 
-include('./conect.php');
+        include('include/conect.php');
 
 $query = "insert into alunos values('$ra','$nome','$cpf','$tel','$email')";
-$q1    = mysqli_query($conn,$query);    //conex�o que vem do arquivo conect.php
+$q1    = mysqli_query($conn,$query);    //conexao que vem do arquivo conect.php
 //$q1    = mysql_query($query);
 ?>
 

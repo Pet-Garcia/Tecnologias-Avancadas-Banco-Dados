@@ -59,7 +59,7 @@ switch ($passo)
         $semestre = $_POST['semestre'];
         $ano = $_POST['ano'];
 
-        include('./conect.php');
+        include('include/conect.php');
 
         $query = "INSERT INTO turma VALUES ('$idturma', '$nometurma', '$iddisciplina', '$semestre', '$ano')";
         $q1 = mysqli_query($conn, $query);
@@ -70,8 +70,16 @@ switch ($passo)
                 <td colspan="2" align="center"><b>Turma Cadastrada</b></td>
             </tr>
             <tr>
+                <td>ID Turma:</td>
+                <td><?php echo $idturma; ?></td>
+            </tr>
+            <tr>
                 <td>Turma:</td>
                 <td><?php echo $nometurma; ?></td>
+            </tr>
+            <tr>
+                <td>ID Disciplina:</td>
+                <td><?php echo $iddisciplina; ?></td>
             </tr>
             <tr>
                 <td>Ano/Semestre:</td>

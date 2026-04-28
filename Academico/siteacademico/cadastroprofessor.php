@@ -33,6 +33,14 @@ switch ($passo)
         <td><input name="cpf"></td>
       </tr>
       <tr>
+        <td>Email:</td>
+        <td><input name="email"></td>
+      </tr>
+      <tr>
+        <td>Telefone:</td>
+        <td><input name="telefone"></td>
+      </tr>
+      <tr>
         <input type="hidden" value="1" name="passo">
         <td><input value="<< Limpar >>" type="reset"></td>
         <td><input value="<< SALVAR >>" type="submit"></td>
@@ -48,11 +56,13 @@ switch ($passo)
         $idprofessor = $_POST['idprofessor'];
         $nomeprofessor = $_POST['nomeprofessor'];
         $cpf = $_POST['cpf'];
+        $email = $_POST['email'];
+        $telefone = $_POST['telefone'];
 
-        include('./conect.php');
+        include('include/conect.php');
 
         // Note que seguimos a ordem das colunas da tabela 'professor'
-        $query = "INSERT INTO professor VALUES ('$idprofessor', '$nomeprofessor', '$cpf')";
+        $query = "INSERT INTO professor VALUES ('$idprofessor', '$nomeprofessor', '$cpf', '$email', '$telefone')";
         $q1 = mysqli_query($conn, $query);
 ?>
     <table style="text-align: left; width: 50%;" align="center" border="1" cellpadding="2" cellspacing="2">
@@ -73,9 +83,17 @@ switch ($passo)
                 <td><input value="<?php echo $cpf; ?>" readonly></td>
             </tr>
             <tr>
+                <td>Email:</td>
+                <td><input value="<?php echo $email; ?>" readonly></td>
+            </tr>
+            <tr>
+                <td>Telefone:</td>
+                <td><input value="<?php echo $telefone; ?>" readonly></td>
+            </tr>
+            <tr>
                 <td><a href="index.php">Início</a></td>
                 <td>
-                    <form action="cadastro_professor.php" method="POST">
+                    <form action="cadastroprofessor.php" method="POST">
                         <input type="hidden" value="0" name="passo">
                         <input type="submit" value="<< Voltar >>">
                     </form>
