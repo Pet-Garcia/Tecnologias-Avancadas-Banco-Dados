@@ -36,13 +36,14 @@ switch ($passo)
           <option value="">Selecione o aluno</option>
           <?php while($aluno = mysqli_fetch_assoc($resAluno)) { ?>
             <option value="<?php echo $aluno['ra']; ?>">
-              <?php echo $aluno['nome']; ?>
+              <?php echo $aluno['ra'];
+              echo '-';
+               echo $aluno['nome']; ?>
             </option>
           <?php } ?>
         </select>
       </td>
     </tr>
-
     <tr>
       <td>Turma:</td>
       <td>
@@ -50,7 +51,9 @@ switch ($passo)
           <option value="">Selecione a turma</option>
           <?php while($turma = mysqli_fetch_assoc($resTurma)) { ?>
             <option value="<?php echo $turma['idturma']; ?>">
-              <?php echo $turma['nometurma']; ?>
+                <?php echo $turma['idturma'];
+                echo '-'; 
+                echo $turma['nometurma']; ?>
             </option>
           <?php } ?>
         </select>
