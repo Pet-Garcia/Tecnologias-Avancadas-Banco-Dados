@@ -15,14 +15,10 @@ switch ($passo)
 	case '0':
 	{ ?>
 <form method="POST" action="cadastroaluno.php" name="form_aluno">
-  <table style="text-align: left; width: 50%;" align="center" border="1" cellpadding="2" cellspacing="2">
+  <table style="text-align: left; width: 100%;" align="center" border="1" cellpadding="2" cellspacing="2">
     <tbody>
       <tr>
         <td colspan="2" rowspan="1" align="center">Cadastro de Alunos</td>
-      </tr>
-      <tr>
-        <td>RA:</td>
-        <td><input name="ra"></td>
       </tr>
       <tr>
         <td>nome:</td>
@@ -41,8 +37,8 @@ switch ($passo)
         <td><input name="email"></td>
       </tr>
       <tr><input type="hidden" value="1" name="passo">
-        <td><input value="&lt;&lt; Limpar &gt;&gt;" type="reset"></td>
-        <td><input value="&lt;&lt;  ON &gt;&gt;" type="submit"></td>
+        <td><input value="  [ Limpar ]  " type="reset"></td>
+        <td><input value=" [  Cadastrar  ] " type="submit"></td>
       </tr>
     </tbody>
   </table>
@@ -53,7 +49,6 @@ switch ($passo)
 	}
 	case '1':
 	{
-        $ra = $_POST['ra'];
         $nome = $_POST['nome'];
         $cpf = $_POST['cpf'];
         $tel = $_POST['tel'];
@@ -61,7 +56,8 @@ switch ($passo)
 
         include('include/conect.php');
 
-$query = "insert into alunos values('$ra','$nome','$cpf','$tel','$email')";
+        $query = "INSERT INTO alunos (nome, cpf, telefone, email) 
+        VALUES ('$nome', '$cpf', '$tel', '$email')";
 $q1    = mysqli_query($conn,$query);    //conexao que vem do arquivo conect.php
 //$q1    = mysql_query($query);
 ?>
@@ -73,21 +69,25 @@ $q1    = mysqli_query($conn,$query);    //conexao que vem do arquivo conect.php
         <td colspan="2" rowspan="1" align="center">Dados do usuario cadastrado</td>
       </tr>
       <tr>
-        <td>nome:</td>
+        <td>Nome:</td>
         <td><input name="nome" value="<?php echo $nome;?>"></td>
       </tr>
       <tr>
-        <td>endere&ccedil;o:</td>
-        <td><input name="end" value="<?php echo $end;?>"></td>
+        <td>CPF:</td>
+        <td><input name="end" value="<?php echo $cpf;?>"></td>
       </tr>
       <tr>
-        <td>telefone:</td>
+        <td>Telefone:</td>
         <td><input name="tel" value="<?php echo $tel;?>"></td>
+      </tr>
+      <tr>
+        <td>Email:</td>
+        <td><input name="end" value="<?php echo $email;?>"></td>
       </tr>
       <tr>
         <td><a href="index.php"  target="_self">Inicio</a></td><form action="aulahtmldb.php" method="POST"  name="f2"><!-- form de envio ao voltar  -->
         <td><input type="hidden" value="0" name="passo">
-		<input type='submit'  value='<< voltar >>'  ></form></td>
+		    <input type='submit'  value='<-- Voltar'  ></form></td>
       </tr>
     </tbody>
   </table>	

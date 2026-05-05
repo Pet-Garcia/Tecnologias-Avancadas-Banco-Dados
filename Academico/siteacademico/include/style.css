@@ -1,58 +1,134 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+/* Corpo */
 body {
-    background-color: #111827;
+    background: linear-gradient(135deg, #0f172a, #111827);
     display: flex;
-    flex-direction: column; /* Permite que o título e a tabela fiquem um sob o outro */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
-    color: #f3f4f6; /* Texto quase branco (gray-100) */
+
+    color: #e5e7eb;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Tabela (card) */
 table {
-    background-color: #1f2937; /* gray-800 */
-    border: 2px solid #9ca3af; /* gray-400 */
-    border-collapse: collapse;
-    width: 450px; /* Largura fixa para manter o padrão nos forms */
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidade */
+    background-color: #1f2937;
+    border-radius: 10px;
+    border: none;
+    width: 420px;
+
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
 }
 
+/* Linhas */
 td {
-    border: 1px solid #4b5563; /* gray-600 para as linhas internas ficarem sutis */
-    padding: 12px;
+    padding: 14px;
+    border-bottom: 1px solid #374151;
 }
 
-/* Estilo para destacar a primeira linha (título) */
+/* Remove última borda */
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Cabeçalho */
 tr:first-child td {
-    background-color: #374151; /* gray-700 */
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
-input {
-    background-color: #111827;
-    border: 1px solid #9ca3af;
+    background: linear-gradient(90deg, #3b82f6, #2563eb);
     color: white;
-    padding: 8px;
-    width: 100%;
-    box-sizing: border-box; /* Evita que o input saia da tabela */
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 1px;
 }
 
-input[type="submit"] {
-    background-color: #3b82f6; /* Um azul para o botão de ação */
+/* Inputs */
+input, select {
+    width: 100%;
+    padding: 10px;
+
+    background-color: #111827;
+    border: 1px solid #374151;
+    border-radius: 6px;
+
+    color: #e5e7eb;
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+/* Placeholder */
+input::placeholder {
+    color: #6b7280;
+}
+
+/* Focus elegante */
+input:focus, select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.5);
+}
+
+/* Select customizado */
+select {
+    cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%23e5e7eb' height='20' viewBox='0 0 20 20' width='20'%3E%3Cpath d='M5 7l5 5 5-5H5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+/* Botões */
+input[type="submit"],
+input[type="reset"] {
+    font-weight: bold;
     border: none;
     cursor: pointer;
-    padding: 10px;
+}
+
+/* Botão principal */
+input[type="submit"] {
+    background: linear-gradient(90deg, #3b82f6, #2563eb);
+    color: white;
 }
 
 input[type="submit"]:hover {
-    background-color: #2563eb;
+    transform: scale(1.03);
+    background: linear-gradient(90deg, #2563eb, #1d4ed8);
 }
-a{
-    color: #3b82f6; /* Azul para links ao passar o mouse */
+
+/* Botão secundário */
+input[type="reset"] {
+    background-color: #374151;
+    color: #e5e7eb;
 }
+
+input[type="reset"]:hover {
+    background-color: #4b5563;
+}
+
+/* Links */
+a {
+    color: #60a5fa;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 a:hover {
-    color: #25eb56;
+    color: #22c55e;
+}
+
+/* Pequena animação geral */
+table, input, select {
+    transition: all 0.2s ease-in-out;
 }

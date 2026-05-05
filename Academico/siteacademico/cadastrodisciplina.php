@@ -8,21 +8,27 @@
 <body>
 <?php
 
+include('include/conect.php');
+
 $passo=(isset($_POST['passo'])? $_POST['passo']:'0');
+
+// Buscar cursos
+$sqlCurso = "SELECT idcurso, nomecurso FROM cursos;";
+$resCurso = mysqli_query($conn, $sqlCurso);
+
+// Buscar professores
+$sqlProf = "SELECT idprofessor, nomeprofessor FROM professor;";
+$resProf = mysqli_query($conn, $sqlProf);
 
 switch ($passo)
 {
 	case '0':
 	{ ?>
 <form method="POST" action="cadastrodisciplina.php" name="form_disciplina">
-  <table style="text-align: left; width: 50%;" align="center" border="1" cellpadding="2" cellspacing="2">
+  <table style="text-align: left; width: 100%;" align="center" border="1" cellpadding="2" cellspacing="2">
     <tbody>
       <tr>
         <td colspan="2" rowspan="1" align="center"><b>Cadastro de Disciplinas</b></td>
-      </tr>
-      <tr>
-        <td>ID Disciplina:</td>
-        <td><input name="iddisciplina" type="number"></td>
       </tr>
       <tr>
         <td>Nome da Disciplina:</td>
@@ -30,16 +36,33 @@ switch ($passo)
       </tr>
       <tr>
         <td>ID do Curso:</td>
-        <td><input name="idcurso" type="number"></td>
+        <td>
+          <select name="idcurso">
+              <option value="">Selecione um curso</option>
+              <?php while($curso = mysqli_fetch_assoc($resCurso)) { ?>
+                <option value="<?php echo $curso['idcurso']; ?>">
+                  <?php echo $curso['nomecurso']; ?>
+                </option>
+              <?php } ?>
+          </select>
+        </td>
       </tr>
       <tr>
         <td>ID do Professor:</td>
-        <td><input name="idprofessor" type="number"></td>
+        <td><select name="idprofessor">
+            <option value="">Selecione um professor</option>
+            <?php while($prof = mysqli_fetch_assoc($resProf)) { ?>
+              <option value="<?php echo $prof['idprofessor']; ?>">
+                <?php echo $prof['nomeprofessor']; ?>
+              </option>
+            <?php } ?>
+          </select>
+        </td>
       </tr>
       <tr>
         <input type="hidden" value="1" name="passo">
-        <td><input value="<< Limpar >>" type="reset"></td>
-        <td><input value="<< SALVAR >>" type="submit"></td>
+        <td><input value="  [ Limpar ]  " type="reset"></td>
+        <td><input value=" [  Cadastrar  ] " type="submit"></td>
       </tr>
     </tbody>
   </table>
@@ -49,24 +72,19 @@ switch ($passo)
 	}
 	case '1': // Cadastro de Disciplina
     {
-        $iddisciplina = $_POST['iddisciplina'];
         $nomedisciplina = $_POST['nomedisciplina'];
         $idcurso = $_POST['idcurso'];
         $idprofessor = $_POST['idprofessor'];
 
-        include('include/conect.php');
 
-        $query = "INSERT INTO disciplina VALUES ('$iddisciplina', '$nomedisciplina', '$idcurso', '$idprofessor')";
+        $query = "INSERT INTO disciplina (nomedisciplina, idcurso, idprofessor) 
+        VALUES ('$nomedisciplina', '$idcurso', '$idprofessor')";
         $q1 = mysqli_query($conn, $query);
 ?>
     <table style="text-align: left; width: 50%;" align="center" border="1" cellpadding="2" cellspacing="2">
         <tbody>
             <tr>
                 <td colspan="2" align="center"><b>Disciplina Cadastrada</b></td>
-            </tr>
-            <tr>
-                <td>ID Disciplina:</td>
-                <td><?php echo $iddisciplina; ?></td>
             </tr>
             <tr>
                 <td>Disciplina:</td>
@@ -85,7 +103,7 @@ switch ($passo)
                 <td>
                     <form action="cadastro_disciplina.php" method="POST">
                         <input type="hidden" value="0" name="passo">
-                        <input type="submit" value="<< Voltar >>">
+                        <input type='submit'  value='<-- Voltar'  >
                     </form>
                 </td>
             </tr>

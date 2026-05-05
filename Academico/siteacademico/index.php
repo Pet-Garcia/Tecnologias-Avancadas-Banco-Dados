@@ -21,6 +21,10 @@
                 <td><a href="cadastrodisciplina.php">Cadastrar Disciplina</a></td>
                 <td><a href="cadastroturma.php">Cadastrar Turma</a></td>
             </tr>
+            <tr>
+                <td><a href="cadastraritemturma.php">Cadastrar Aluno na Turma</a></td>
+                <td><a href="cadastroturma.php"></a></td>
+            </tr>
         </tbody>
     </table>
 

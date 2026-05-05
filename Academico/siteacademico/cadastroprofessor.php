@@ -15,14 +15,10 @@ switch ($passo)
 	case '0':
 	{ ?>
 <form method="POST" action="cadastroprofessor.php" name="form_professor">
-  <table style="text-align: left; width: 50%;" align="center" border="1" cellpadding="2" cellspacing="2">
+  <table style="text-align: left; width: 100%;" align="center" border="1" cellpadding="2" cellspacing="2">
     <tbody>
       <tr>
         <td colspan="2" rowspan="1" align="center"><b>Cadastro de Professores</b></td>
-      </tr>
-      <tr>
-        <td>ID Professor:</td>
-        <td><input name="idprofessor" type="number"></td>
       </tr>
       <tr>
         <td>Nome:</td>
@@ -42,8 +38,8 @@ switch ($passo)
       </tr>
       <tr>
         <input type="hidden" value="1" name="passo">
-        <td><input value="<< Limpar >>" type="reset"></td>
-        <td><input value="<< SALVAR >>" type="submit"></td>
+        <td><input value="  [ Limpar ]  " type="reset"></td>
+        <td><input value=" [  Cadastrar  ] " type="submit"></td>
       </tr>
     </tbody>
   </table>
@@ -53,7 +49,6 @@ switch ($passo)
 	}
 	case '1': // Cadastro de Professor
     {
-        $idprofessor = $_POST['idprofessor'];
         $nomeprofessor = $_POST['nomeprofessor'];
         $cpf = $_POST['cpf'];
         $email = $_POST['email'];
@@ -62,17 +57,14 @@ switch ($passo)
         include('include/conect.php');
 
         // Note que seguimos a ordem das colunas da tabela 'professor'
-        $query = "INSERT INTO professor VALUES ('$idprofessor', '$nomeprofessor', '$cpf', '$email', '$telefone')";
+        $query = "INSERT INTO professor (nomeprofessor, cpf, email, telefone) 
+          VALUES ('$nomeprofessor', '$cpf', '$email', '$telefone')";
         $q1 = mysqli_query($conn, $query);
 ?>
     <table style="text-align: left; width: 50%;" align="center" border="1" cellpadding="2" cellspacing="2">
         <tbody>
             <tr>
                 <td colspan="2" align="center"><b>Professor Cadastrado com Sucesso</b></td>
-            </tr>
-            <tr>
-                <td>ID:</td>
-                <td><input value="<?php echo $idprofessor; ?>" readonly></td>
             </tr>
             <tr>
                 <td>Nome:</td>
@@ -95,7 +87,7 @@ switch ($passo)
                 <td>
                     <form action="cadastroprofessor.php" method="POST">
                         <input type="hidden" value="0" name="passo">
-                        <input type="submit" value="<< Voltar >>">
+                        <input type='submit'  value='<-- Voltar'  >
                     </form>
                 </td>
             </tr>
