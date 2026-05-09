@@ -1,113 +1,116 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-
-  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-  <link rel="stylesheet" type="text/css" href="include/style.css">
-  <title>Turma</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="include/style.css">
+    <title>Cadastro de Turma</title>
 </head>
 <body>
-<?php
 
+<?php
 include('include/conect.php');
 
-$passo=(isset($_POST['passo'])? $_POST['passo']:'0');
+$passo = (isset($_POST['passo']) ? $_POST['passo'] : '0');
 
-// Buscar cursos
+// Buscar disciplinas para o menu suspenso
 $sqlDisci = "SELECT iddisciplina, nomedisciplina FROM disciplina;";
 $resDisci = mysqli_query($conn, $sqlDisci);
 
-switch ($passo)
-{
-	case '0':
-	{ ?>
-<form method="POST" action="cadastroturma.php" name="form_turma">
-  <table style="text-align: left; width: 100%;" align="center" border="1" cellpadding="2" cellspacing="2">
-    <tbody>
-      <tr>
-        <td colspan="2" rowspan="1" align="center"><b>Cadastro de Turmas</b></td>
-      </tr>
-      <tr>
-        <td>Nome da Turma:</td>
-        <td><input name="nometurma"></td>
-      </tr>
-      <tr>
-        <td>ID da Disciplina:</td>
-        <td>
-          <select name="iddisciplina">
-              <option value="">Selecione uma Disciplina</option>
-              <?php while($curso = mysqli_fetch_assoc($resDisci)) { ?>
-                <option value="<?php echo $curso['iddisciplina']; ?>">
-                  <?php echo $curso['nomedisciplina']; ?>
-                </option>
-              <?php } ?>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>Semestre:</td>
-        <td><input name="semestre" type="number" placeholder="Ex: 1"></td>
-      </tr>
-      <tr>
-        <td>Ano:</td>
-        <td><input name="ano" type="number" placeholder="Ex: 2026"></td>
-      </tr>
-      <tr>
-        <input type="hidden" value="1" name="passo">
-        <td><input value="  [ Limpar ]  " type="reset"></td>
-        <td><input value=" [  Cadastrar  ] " type="submit"></td>
-      </tr>
-    </tbody>
-  </table>
-</form>
-<?php
-	break;
-	}
-	case '1': // Cadastro de Turma
-    {
+switch ($passo) {
+    case '0': ?>
+        <!-- Tela de Formulário de Cadastro -->
+        <main class="container">
+            <form method="POST" action="cadastroturma.php" class="card-form" name="form_turma">
+                <header class="card-header">
+                    <h2>Cadastro de Turma</h2>
+                    <p>Organize os alunos em períodos e disciplinas específicas.</p>
+                </header>
+
+                <div class="form-body">
+                    <div class="form-group">
+                        <label>Nome da Turma</label>
+                        <input type="text" name="nometurma" placeholder="Ex: Engenharia 2026-A" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Disciplina</label>
+                        <select name="iddisciplina" required>
+                            <option value="">Selecione a disciplina...</option>
+                            <?php while($disci = mysqli_fetch_assoc($resDisci)) { ?>
+                                <option value="<?php echo $disci['iddisciplina']; ?>">
+                                    <?php echo $disci['nomedisciplina']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+
+                    <div class="form-row" style="display: flex; gap: 15px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Semestre</label>
+                            <input name="semestre" type="number" min="1" max="2" placeholder="1 ou 2" required>
+                        </div>
+                        <div class="form-group" style="flex: 2;">
+                            <label>Ano</label>
+                            <input name="ano" type="number" min="2024" max="2030" placeholder="Ex: 2026" required>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="card-footer">
+                    <input type="hidden" value="1" name="passo">
+                    <button type="reset" class="btn-secondary">Limpar</button>
+                    <button type="submit" class="btn-primary">Criar Turma</button>
+                </footer>
+            </form>
+        </main>
+    <?php break;
+
+    case '1':
         $nometurma = $_POST['nometurma'];
         $iddisciplina = $_POST['iddisciplina'];
         $semestre = $_POST['semestre'];
         $ano = $_POST['ano'];
 
-        include('include/conect.php');
-
-        $query = "INSERT INTO turma (nometurma, iddisciplina, semestre, ano) VALUES ('$nometurma', '$iddisciplina', '$semestre', '$ano')";
+        $query = "INSERT INTO turma (nometurma, iddisciplina, semestre, ano) 
+                  VALUES ('$nometurma', '$iddisciplina', '$semestre', '$ano')";
         $q1 = mysqli_query($conn, $query);
-?>
-    <table style="text-align: left; width: 50%;" align="center" border="1" cellpadding="2" cellspacing="2">
-        <tbody>
-            <tr>
-                <td colspan="2" align="center"><b>Turma Cadastrada</b></td>
-            </tr>
-            <tr>
-                <td>Turma:</td>
-                <td><?php echo $nometurma; ?></td>
-            </tr>
-            <tr>
-                <td>ID Disciplina:</td>
-                <td><?php echo $iddisciplina; ?></td>
-            </tr>
-            <tr>
-                <td>Ano/Semestre:</td>
-                <td><?php echo $ano . "/" . $semestre; ?></td>
-            </tr>
-            <tr>
-                <td><a href="index.php">Início</a></td>
-                <td>
-                    <form action="cadastro_turma.php" method="POST">
-                        <input type="hidden" value="0" name="passo">
-                        <input type='submit'  value='<-- Voltar'  >
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-<?php 
-        break;
-    }
-}
-?>
-</body>	
-	
+    ?>
+        <!-- Tela de Confirmação de Cadastro -->
+        <main class="container">
+            <div class="card-form success-state">
+                <header class="card-header">
+                    <div class="status-icon">🏫</div>
+                    <h2>Turma Criada!</h2>
+                    <p>A nova turma foi registrada no sistema com sucesso.</p>
+                </header>
 
+                <div class="form-body readonly-data">
+                    <div class="data-item">
+                        <strong>Nome da Turma:</strong> 
+                        <span><?php echo $nometurma; ?></span>
+                    </div>
+                    <div class="data-item">
+                        <strong>Cód. Disciplina:</strong> 
+                        <span><?php echo $iddisciplina; ?></span>
+                    </div>
+                    <div class="data-item">
+                        <strong>Período Letivo:</strong> 
+                        <span><?php echo $ano . " / " . $semestre . "º Sem."; ?></span>
+                    </div>
+                </div>
+
+                <footer class="card-footer footer-dual">
+                    <a href="index.php" class="btn-link">Menu Inicial</a>
+                    <form action="cadastroturma.php" method="POST">
+                        <input type="hidden" value="0" name="passo">
+                        <button type="submit" class="btn-secondary"><-- Voltar</button>
+                    </form>
+                </footer>
+            </div>
+        </main>
+    <?php break;
+} ?>
+
+</body>
 </html>

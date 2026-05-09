@@ -1,101 +1,94 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-
-  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-  <link rel="stylesheet" type="text/css" href="include/style.css">
-  <title>Aluno</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="include/style.css">
+    <title>Cadastro de Aluno</title>
 </head>
 <body>
-<?php
 
-$passo=(isset($_POST['passo'])? $_POST['passo']:'0');
-
-switch ($passo)
-{
-	case '0':
-	{ ?>
-<form method="POST" action="cadastroaluno.php" name="form_aluno">
-  <table style="text-align: left; width: 100%;" align="center" border="1" cellpadding="2" cellspacing="2">
-    <tbody>
-      <tr>
-        <td colspan="2" rowspan="1" align="center">Cadastro de Alunos</td>
-      </tr>
-      <tr>
-        <td>nome:</td>
-        <td><input name="nome"></td>
-      </tr>
-      <tr>
-        <td>cpf:</td>
-        <td><input name="cpf"></td>
-      </tr>
-      <tr>
-        <td>telefone:</td>
-        <td><input name="tel"></td>
-      </tr>
-      <tr>
-        <td>email:</td>
-        <td><input name="email"></td>
-      </tr>
-      <tr><input type="hidden" value="1" name="passo">
-        <td><input value="  [ Limpar ]  " type="reset"></td>
-        <td><input value=" [  Cadastrar  ] " type="submit"></td>
-      </tr>
-    </tbody>
-  </table>
-  <br>
-</form>
 <?php
-	break;
-	}
-	case '1':
-	{
+$passo = (isset($_POST['passo']) ? $_POST['passo'] : '0');
+
+switch ($passo) {
+    case '0': ?>
+        <!-- Tela de Cadastro -->
+        <main class="container">
+            <form method="POST" action="cadastroaluno.php" class="card-form">
+                <header class="card-header">
+                    <h2>Cadastro de Aluno</h2>
+                    <p>Preencha os dados abaixo para o registro.</p>
+                </header>
+
+                <div class="form-body">
+                    <div class="form-group">
+                        <label>Nome Completo</label>
+                        <input type="text" name="nome" placeholder="Ex: João Silva" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>CPF</label>
+                        <input type="text" name="cpf" placeholder="000.000.000-00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="text" name="tel" placeholder="(00) 00000-0000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>E-mail</label>
+                        <input type="email" name="email" placeholder="email@exemplo.com">
+                    </div>
+                </div>
+
+                <footer class="card-footer">
+                    <input type="hidden" value="1" name="passo">
+                    <button type="reset" class="btn-secondary">Limpar</button>
+                    <button type="submit" class="btn-primary">Cadastrar Aluno</button>
+                </footer>
+            </form>
+        </main>
+    <?php break;
+
+    case '1':
         $nome = $_POST['nome'];
         $cpf = $_POST['cpf'];
         $tel = $_POST['tel'];
         $email = $_POST['email'];
 
         include('include/conect.php');
+        $query = "INSERT INTO alunos (nome, cpf, telefone, email) VALUES ('$nome', '$cpf', '$tel', '$email')";
+        $q1 = mysqli_query($conn, $query);
+    ?>
+        <!-- Tela de Confirmação -->
+        <main class="container">
+            <div class="card-form success-state">
+                <header class="card-header">
+                    <div class="status-icon">✅</div>
+                    <h2>Cadastro Realizado!</h2>
+                    <p>Os dados foram salvos no sistema.</p>
+                </header>
 
-        $query = "INSERT INTO alunos (nome, cpf, telefone, email) 
-        VALUES ('$nome', '$cpf', '$tel', '$email')";
-$q1    = mysqli_query($conn,$query);    //conexao que vem do arquivo conect.php
-//$q1    = mysql_query($query);
-?>
+                <div class="form-body readonly-data">
+                    <div class="data-item"><strong>Nome:</strong> <span><?php echo $nome;?></span></div>
+                    <div class="data-item"><strong>CPF:</strong> <span><?php echo $cpf;?></span></div>
+                    <div class="data-item"><strong>Tel:</strong> <span><?php echo $tel;?></span></div>
+                    <div class="data-item"><strong>Email:</strong> <span><?php echo $email;?></span></div>
+                </div>
 
+                <footer class="card-footer footer-dual">
+                    <a href="index.php" class="btn-link">Início</a>
+                    <form action="cadastroaluno.php" method="POST">
+                        <input type="hidden" value="0" name="passo">
+                        <button type="submit" class="btn-secondary"><-- Voltar</button>
+                    </form>
+                </footer>
+            </div>
+        </main>
+    <?php break;
+} ?>
 
-  <table style="text-align: left; width: 50%;" align="center" border="1" cellpadding="2" cellspacing="2">
-    <tbody>
-      <tr>
-        <td colspan="2" rowspan="1" align="center">Dados do usuario cadastrado</td>
-      </tr>
-      <tr>
-        <td>Nome:</td>
-        <td><input name="nome" value="<?php echo $nome;?>"></td>
-      </tr>
-      <tr>
-        <td>CPF:</td>
-        <td><input name="end" value="<?php echo $cpf;?>"></td>
-      </tr>
-      <tr>
-        <td>Telefone:</td>
-        <td><input name="tel" value="<?php echo $tel;?>"></td>
-      </tr>
-      <tr>
-        <td>Email:</td>
-        <td><input name="end" value="<?php echo $email;?>"></td>
-      </tr>
-      <tr>
-        <td><a href="index.php"  target="_self">Inicio</a></td><form action="aulahtmldb.php" method="POST"  name="f2"><!-- form de envio ao voltar  -->
-        <td><input type="hidden" value="0" name="passo">
-		    <input type='submit'  value='<-- Voltar'  ></form></td>
-      </tr>
-    </tbody>
-  </table>	
-	<?php break;
-	}
-}
-?>
-</body>	
-	
-
+</body>
 </html>
