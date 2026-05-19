@@ -24,10 +24,10 @@ switch ($passo) {
     case '0': ?>
         <!-- Tela de Formulário -->
         <main class="container-busca">
-            <form method="POST" action="cadastrodisciplina.php" class="card-form" name="form_disciplina">
+            <form method="POST" action="buscas.php" class="card-form" name="form_disciplina">
                 <header class="card-header">
-                    <h2>Cadastro de Disciplina</h2>
-                    <p>Vincule matérias a cursos e professores específicos.</p>
+                    <h2>Busca</h2>
+                    <p>Selecione o curso, o ano e  os professores específicos.</p>
                 </header>
 
                 <div class="form-body">
@@ -68,55 +68,106 @@ switch ($passo) {
                 <footer class="card-footer">
                     <input type="hidden" value="1" name="passo">
                     <button type="reset" class="btn-secondary">Limpar</button>
-                    <button type="submit" class="btn-primary">Cadastrar Disciplina</button>
+                    <button type="submit" class="btn-primary">Buscar</button>
                 </footer>
             </form>
         </main>
     <?php break;
 
     case '1':
-        $nomedisciplina = $_POST['nomedisciplina'];
+
         $idcurso = $_POST['idcurso'];
         $idprofessor = $_POST['idprofessor'];
+        $ano = $_POST['ano'];
 
-        $query = "INSERT INTO disciplina (nomedisciplina, idcurso, idprofessor) 
-                  VALUES ('$nomedisciplina', '$idcurso', '$idprofessor')";
-        $q1 = mysqli_query($conn, $query);
+        // QUERY DE BUSCA
+        $query = "
+            SELECT 
+                d.iddisciplina,
+                d.nomedisciplina,
+                c.nomecurso,
+                t.nometurma,
+                p.nomeprofessor,
+                t.ano
+            FROM disciplina d
+            INNER JOIN cursos c ON d.idcurso = c.idcurso
+            INNER JOIN professor p ON d.idprofessor = p.idprofessor
+            INNER JOIN turma t ON d.iddisciplina = t.idturma
+            WHERE d.idcurso = '$idcurso'
+            AND d.idprofessor = '$idprofessor'
+            AND t.ano = '$ano';
+        ";
+
+        $resultado = mysqli_query($conn, $query);
     ?>
-        <!-- Tela de Confirmação -->
-        <main class="container-busca">
-            <div class="card-form success-state">
-                <header class="card-header">
-                    <div class="status-icon">📚</div>
-                    <h2>Disciplina Registrada!</h2>
-                    <p>A nova disciplina foi adicionada à grade curricular.</p>
-                </header>
 
-                <div class="form-body readonly-data">
-                    <div class="data-item">
-                        <strong>Disciplina:</strong> 
-                        <span><?php echo $nomedisciplina; ?></span>
-                    </div>
-                    <div class="data-item">
-                        <strong>Cód. Curso:</strong> 
-                        <span><?php echo $idcurso; ?></span>
-                    </div>
-                    <div class="data-item">
-                        <strong>Cód. Professor:</strong> 
-                        <span><?php echo $idprofessor; ?></span>
-                    </div>
-                </div>
+    <main class="container-busca">
+        <div class="card-form">
 
-                <footer class="card-footer footer-dual">
-                    <a href="index.php" class="btn-link">Menu Principal</a>
-                    <form action="cadastrodisciplina.php" method="POST">
-                        <input type="hidden" value="0" name="passo">
-                        <button type="submit" class="btn-secondary"><-- Voltar</button>
-                    </form>
-                </footer>
+            <header class="card-header">
+                <h2>Resultado da Busca</h2>
+                <p>Resultados encontradas.</p>
+            </header>
+
+            <div class="form-body">
+
+                <?php
+                if(mysqli_num_rows($resultado) > 0){
+
+                    while($dados = mysqli_fetch_assoc($resultado)){
+                ?>
+
+                    <div class="data-item">
+                        <strong>ID:</strong>
+                        <span><?php echo $dados['iddisciplina']; ?></span>
+                    </div>
+
+                    <div class="data-item">
+                        <strong>Disciplina:</strong>
+                        <span><?php echo $dados['nomedisciplina']; ?></span>
+                    </div>
+
+                    <div class="data-item">
+                        <strong>Curso:</strong>
+                        <span><?php echo $dados['nomecurso']; ?></span>
+                    </div>
+
+                    <div class="data-item">
+                        <strong>Professor:</strong>
+                        <span><?php echo $dados['nomeprofessor']; ?></span>
+                    </div>
+
+                    <div class="data-item">
+                        <strong>Ano:</strong>
+                        <span><?php echo $dados['ano']; ?></span>
+                    </div>
+
+                    <hr>
+
+                <?php
+                    }
+
+                } else {
+                    echo "<p>Nenhuma resultado encontrada.</p>";
+                }
+                ?>
+
             </div>
-        </main>
-    <?php break;
+
+            <footer class="card-footer">
+                <form action="buscas.php" method="POST">
+                    <input type="hidden" name="passo" value="0">
+                    <button type="submit" class="btn-secondary">
+                        <-- Voltar
+                    </button>
+                </form>
+            </footer>
+
+        </div>
+    </main>
+
+    <?php
+    break;
 } ?>
 
 </body>
