@@ -92,7 +92,7 @@ switch ($passo) {
             FROM disciplina d
             INNER JOIN cursos c ON d.idcurso = c.idcurso
             INNER JOIN professor p ON d.idprofessor = p.idprofessor
-            INNER JOIN turma t ON d.iddisciplina = t.idturma
+            INNER JOIN turma t ON d.iddisciplina = t.iddisciplina
             WHERE d.idcurso = '$idcurso'
             AND d.idprofessor = '$idprofessor'
             AND t.ano = '$ano';
