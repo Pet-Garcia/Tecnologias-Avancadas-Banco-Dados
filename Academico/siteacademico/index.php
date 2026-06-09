@@ -15,7 +15,7 @@
         </header>
 
         <nav class="menu-grid">
-            <a href="cadastroprofessor.php" class="menu-card">
+            <a href="cadastroprofessor.php" class="menu-card custom-width">
                 <div class="card-icon">👨‍🏫</div>
                 <div class="card-content">
                     <span>Professor</span>
@@ -23,7 +23,7 @@
                 </div>
             </a>
 
-            <a href="cadastroaluno.php" class="menu-card">
+            <a href="cadastroaluno.php" class="menu-card custom-width">
                 <div class="card-icon">🎓</div>
                 <div class="card-content">
                     <span>Aluno</span>
@@ -31,7 +31,7 @@
                 </div>
             </a>
 
-            <a href="cadastrodisciplina.php" class="menu-card">
+            <a href="cadastrodisciplina.php" class="menu-card custom-width">
                 <div class="card-icon">📚</div>
                 <div class="card-content">
                     <span>Disciplina</span>
@@ -39,7 +39,7 @@
                 </div>
             </a>
 
-            <a href="cadastroturma.php" class="menu-card">
+            <a href="cadastroturma.php" class="menu-card custom-width">
                 <div class="card-icon">🏫</div>
                 <div class="card-content">
                     <span>Turma</span>
@@ -47,15 +47,15 @@
                 </div>
             </a>
 
-            <a href="buscas.php" class="menu-card">
-                <div class="card-icon">Lupa</div>
+            <a href="buscas.php" class="menu-card custom-width">
+                <div class="card-icon">🔍</div>
                 <div class="card-content">
                     <span>Busca</span>
                     <small>Buscar no Banco</small>
                 </div>
             </a>
 
-            <a href="cadastraritemturma.php" class="menu-card full-width">
+            <a href="cadastraritemturma.php" class="menu-card custom-width">
                 <div class="card-icon">🔗</div>
                 <div class="card-content">
                     <span>Vincular Aluno à Turma</span>
