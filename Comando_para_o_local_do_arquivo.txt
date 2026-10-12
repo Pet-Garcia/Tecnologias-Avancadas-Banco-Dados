@@ -1,0 +1,2 @@
+Comandos para ir para a pasta do Nginx para o site hospedado de BD
+cd /var/www/academico
